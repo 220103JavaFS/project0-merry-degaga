@@ -1,4 +1,4 @@
-package com.revature.com.revature.users;
+package com.revature.users;
 
 public class Employee extends User{
 

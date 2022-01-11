@@ -1,4 +1,4 @@
-package com.revature.com.revature.service;
+package com.revature.service;
 
 public class Service {
 }

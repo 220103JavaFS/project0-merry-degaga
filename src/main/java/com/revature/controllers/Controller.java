@@ -1,4 +1,4 @@
-package com.revature.com.revature.controllers;
+package com.revature.controllers;
 
 public class Controller {
 }

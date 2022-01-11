@@ -1,4 +1,4 @@
-package com.revature.com.revature.users;
+package com.revature.users;
 
 public abstract class User {
     private String name;
