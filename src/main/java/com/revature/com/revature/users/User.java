@@ -8,11 +8,21 @@ public abstract class User {
 
     protected User(String name, String email, int phoneNumber, int dob){
         super();
-        this.name = name;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.dob = dob;
+        //validate input with utility class
+        if(Validator.isValidName(name)) {
+            this.name = name;
+        }
+        if(Validator.isValidEmail(email)) {
+            this.email = email;
+        }
+        if(Validator.isValidPhoneNumber(phoneNumber)) {
+            this.phoneNumber = phoneNumber;
+        }
+        if(Validator.isValidDOB(dob)) {
+            this.dob = dob;
+        }
     }
+
 
     //concrete methods
     protected void getMenu(){}
