@@ -3,7 +3,7 @@ package com.revature.users;
 public class Manager extends Employee{
 
 
-    public Manager(String name, String email, int phoneNumber, int dob){
+    public Manager(String name, String email, String phoneNumber, String dob){
         super(name, email, phoneNumber,dob);
     }
 

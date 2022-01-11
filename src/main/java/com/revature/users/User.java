@@ -3,10 +3,10 @@ package com.revature.users;
 public abstract class User {
     private String name;
     private String email;
-    private int phoneNumber;
-    private int dob;
+    private String phoneNumber;
+    private String dob;
 
-    protected User(String name, String email, int phoneNumber, int dob){
+    protected User(String name, String email, String phoneNumber, String dob){
         super();
         //validate input with utility class
         if(Validator.isValidName(name)) {
@@ -36,10 +36,10 @@ public abstract class User {
     protected String getEmail(){
         return this.email;
     }
-    protected int getPhoneNumber(){
+    protected String getPhoneNumber(){
         return this.phoneNumber;
     }
-    protected int getDob(){
+    protected String getDob(){
         return  this.dob;
     }
 

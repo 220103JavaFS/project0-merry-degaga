@@ -5,7 +5,7 @@ public class Employee extends User{
     private String userID;
     private boolean isLoggedIn;
 
-    public Employee(String name, String email, int phoneNumber, int dob){
+    public Employee(String name, String email, String phoneNumber, String dob){
         super(name, email, phoneNumber, dob);
         this.isLoggedIn = false;
         //userID?
