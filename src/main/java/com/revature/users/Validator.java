@@ -1,34 +1,32 @@
 package com.revature.users;
 
-import java.util.Locale;
+import com.revature.exceptions.MyException;
 
 public final class Validator {
 
     private static String pattern;
 
-    public Validator(){}
+    private Validator(){}
 
     //default utility methods
-    static boolean isValidName(String name){
-        //name is only contains characters A-Za-z
-        //follow format first lastname
+    static boolean isValidName(String name) {
         if(isEmpty(name)) {
-            //throw new Exception();
+            throw new MyException("No name provided");
         }
         pattern = "[A-Za-z]{3,20} [A-Za-z]{3,20}";
         if(!name.matches(pattern)) {
-            //throw error that does not follow pattern
+            throw new MyException("Invalid Name entry.");
         }
         return true;
     }
 
-    static boolean isValidEmail(String email){
+    static boolean isValidEmail(String email) {
         if(isEmpty(email)) {
-            //throw new Exception();
+            throw new MyException("No email provided");
         }
         pattern = "[A-Za-z]{1,32}([A-Za-z]|[0-9]){0,32}@[A-Za-z]{1,121}([A-Za-z]|[0-9]){0,121}.[a-z]{3}";
         if(!email.matches(pattern)){
-            //throw new exception
+            throw new MyException("Invalid email entry.");
         }
         return true;
     }
@@ -36,7 +34,7 @@ public final class Validator {
     static boolean isValidPhoneNumber(String phoneNumber){
         pattern = "[1-9]{3}.\\d{3}.\\d{4}";
         if(!phoneNumber.matches(pattern)){
-            //throw exception
+            throw new MyException("Invalid phone number entry.");
         }
         return true;
     }
@@ -48,11 +46,9 @@ public final class Validator {
         String month = dob.substring(0,slash);
 
         if(!month.matches(pattern)) {
-            //throw error invalid month
+            throw new MyException("Invalid month entry");
         }
-
         //month is valid so check date
-
         switch (month) {
             case "2": break;
             case "7":
@@ -63,9 +59,8 @@ public final class Validator {
             default: pattern = "[/]((([1-9])|([1-2][0-9]))|30|31)";
                 break;
         }
-
         if(!dob.matches(pattern)) {
-            //throw error bad date
+            throw new MyException("Invalid date entry");
         }
         return true;
     }

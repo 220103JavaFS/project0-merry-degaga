@@ -1,5 +1,6 @@
 package com.revature.users;
 
+
 public abstract class User {
     private String name;
     private String email;
@@ -9,17 +10,21 @@ public abstract class User {
     protected User(String name, String email, String phoneNumber, String dob){
         super();
         //validate input with utility class
-        if(Validator.isValidName(name)) {
-            this.name = name;
-        }
-        if(Validator.isValidEmail(email)) {
-            this.email = email;
-        }
-        if(Validator.isValidPhoneNumber(phoneNumber)) {
-            this.phoneNumber = phoneNumber;
-        }
-        if(Validator.isValidDOB(dob)) {
-            this.dob = dob;
+        try {
+            if (Validator.isValidName(name)) {
+                this.name = name;
+            }
+            if (Validator.isValidEmail(email)) {
+                this.email = email;
+            }
+            if (Validator.isValidPhoneNumber(phoneNumber)) {
+                this.phoneNumber = phoneNumber;
+            }
+            if (Validator.isValidDOB(dob)) {
+                this.dob = dob;
+            }
+        } catch(Exception e) {
+            System.out.println((e.getMessage()));
         }
     }
 
