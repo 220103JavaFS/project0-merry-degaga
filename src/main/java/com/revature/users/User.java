@@ -1,6 +1,10 @@
 package com.revature.users;
 
 
+import com.revature.exceptions.MyException;
+
+import java.util.Objects;
+
 public abstract class User {
     private String name;
     private String email;
@@ -23,16 +27,38 @@ public abstract class User {
             if (Validator.isValidDOB(dob)) {
                 this.dob = dob;
             }
-        } catch(Exception e) {
-            System.out.println((e.getMessage()));
+        } catch(MyException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
-
     //concrete methods
-    protected void getMenu(){}
+    //protected void getMenu(){}
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(name, user.name) && Objects.equals(email, user.email) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(dob, user.dob);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, email, phoneNumber, dob);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", dob='" + dob + '\'' +
+                '}';
+    }
 
     //getters and setters
     protected String getName(){
@@ -50,7 +76,7 @@ public abstract class User {
 
 
     //abstract methods
-    protected abstract void addItem();
-    protected abstract void removeItem();
+    //protected abstract void addItem();
+    //protected abstract void removeItem();
 
 }
