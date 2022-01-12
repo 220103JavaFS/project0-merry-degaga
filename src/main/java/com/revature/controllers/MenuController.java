@@ -1,9 +1,17 @@
 package com.revature.controllers;
-
 import io.javalin.Javalin;
+import io.javalin.core.security.RouteRole;
+import io.javalin.http.Context;
 import io.javalin.http.Handler;
 
-public class MenuController extends Controller {
+import java.util.Set;
+
+public class MenuController extends Controller implements Roles{
+
+    @Override
+    public Role getUserRole(Context ctx) {
+        return null;
+    }
 
     //call declare and init a service layer object
     private Handler getMenu = (ctx) -> {
@@ -11,10 +19,10 @@ public class MenuController extends Controller {
         ctx.status(200);
     };
 
-    private Handler addItem = (ctx) -> {
+    private Handler addItemToCart = (ctx) -> {
 
     };
-    private Handler removeItem = (ctx) -> {
+    private Handler removeItemFromCart = (ctx) -> {
 
     };
     private Handler getTotalOrder = (ctx) -> {
@@ -23,12 +31,13 @@ public class MenuController extends Controller {
 
     @Override
     public void addRoutes(Javalin app) {
-        app.get("/menu", getMenu);
-        app.get("/cart", getTotalOrder);
-        app.put("/menu{:item}", addItem);
-        app.put("/menu{:item}", removeItem);
+        app.get("/menu", getMenu, Role.ALL);
+        app.get("/cart", getTotalOrder, Role.ALL);
+        app.put("/menu{:item}", addItemToCart, Role.ALL);
+        app.put("/menu{:item}", removeItemFromCart, Role.ALL);
 
     }
+
 
 
 }

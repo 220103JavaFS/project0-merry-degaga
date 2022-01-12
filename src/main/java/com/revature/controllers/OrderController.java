@@ -1,9 +1,14 @@
 package com.revature.controllers;
 
 import io.javalin.Javalin;
+import io.javalin.http.Context;
 import io.javalin.http.Handler;
 
-public class OrderController extends Controller{
+public class OrderController extends Controller implements Roles{
+    @Override
+    public Role getUserRole(Context ctx) {
+        return null;
+    }
 
     private Handler getAllOrders = (ctx) -> {
 
@@ -14,7 +19,8 @@ public class OrderController extends Controller{
 
     @Override
     public void addRoutes(Javalin app) {
-        app.get("/orders",getAllOrders);
-        app.put("/complete{}", completeOrder);
+        app.get("/orders",getAllOrders, Role.EMPLOYEE, Role.ADMIN);
+        app.put("/complete{}", completeOrder, Role.EMPLOYEE, Role.ADMIN);
     }
+
 }

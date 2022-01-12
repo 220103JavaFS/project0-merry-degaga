@@ -1,11 +1,13 @@
 package com.revature.controllers;
 
 import io.javalin.Javalin;
+import io.javalin.http.Context;
 import io.javalin.http.Handler;
 
-public class LogonController extends Controller{
+public class LogonController extends Controller {
 
     private Handler login = (ctx) -> {
+        //call getUserRole, if Role is in Role then do request
         ctx.html("success, login");
     };
 
