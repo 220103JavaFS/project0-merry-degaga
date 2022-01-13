@@ -9,11 +9,6 @@ import io.javalin.http.Handler;
 public class MenuController extends Controller implements Roles {
 
 
-    @Override
-    public Role getUserRole(Context ctx) {
-        return null;
-    }
-
     //call declare and init a service layer object
     private Handler getMenu = (ctx) -> {
         System.out.println("role?????");

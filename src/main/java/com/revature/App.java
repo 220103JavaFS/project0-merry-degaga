@@ -9,7 +9,7 @@ public class App {
     public static void main(String[] args) {
 
         app = Javalin.create( c -> {
-            c.accessManager(new AcessManagerConfigure());
+            c.accessManager(new AccessManagerConfigure());
         }).start();
 
         configure(new LogonController(), new MenuController(), new OrderController());
