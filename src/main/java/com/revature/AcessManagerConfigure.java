@@ -14,6 +14,6 @@ public class AcessManagerConfigure implements AccessManager {
 
     @Override
     public void manage(@NotNull Handler handler, @NotNull Context ctx, @NotNull Set<RouteRole> routeRoles) throws Exception {
-                    
+
     }
 }
