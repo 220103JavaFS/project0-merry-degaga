@@ -2,7 +2,7 @@ package com.revature.controllers;
 import io.javalin.core.security.RouteRole;
 
 
-public interface Roles {
+interface Roles {
     enum Role implements RouteRole {
         MANAGER,
         EMPLOYEE,
