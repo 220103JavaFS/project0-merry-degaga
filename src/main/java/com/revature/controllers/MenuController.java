@@ -4,9 +4,6 @@ import com.revature.users.cart.food.Food;
 import io.javalin.Javalin;
 import io.javalin.http.Handler;
 
-
-
-
 public class MenuController extends Controller {
 
     private MenuService service = new MenuService();
@@ -19,16 +16,20 @@ public class MenuController extends Controller {
 
     private Handler addMenuItem = (ctx) -> {
         Food food = ctx.bodyAsClass(Food.class);
-        System.out.println(food.toString());
+        //service.addMenuItem(food);
         ctx.status(200);
 
     };
     private Handler removeMenuItem = (ctx) -> {
-
+        String name = ctx.queryParam("name");
+        //service.removeMenuItem(name);
+        ctx.status(200);
     };
 
     private Handler editMenuItem = (ctx) -> {
-
+        String name = ctx.queryParam("name");
+        //service.editMenuItem(name);
+        ctx.status(200);
     };
 
 
