@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Manager extends Employee{
 
-
+    public Manager(){}
     public Manager(String name, String email, String phoneNumber, String dob){
         super(name, email, phoneNumber,dob);
     }

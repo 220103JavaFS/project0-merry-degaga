@@ -1,4 +1,4 @@
-package com.revature.shopping.cart.food;
+package com.revature.users.cart.food;
 
 import java.util.Objects;
 
@@ -6,6 +6,8 @@ public class Food {
     private String name;
     private String cost;
     private int quantity;
+
+    public Food(){}
 
     public Food(String name, String cost, int quantity) {
         this.name = name;

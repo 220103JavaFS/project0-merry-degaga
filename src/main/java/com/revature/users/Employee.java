@@ -7,6 +7,8 @@ public class Employee extends User{
     private String userID;
     private boolean isLoggedIn;
 
+    public Employee(){}
+
     public Employee(String name, String email, String phoneNumber, String dob){
         super(name, email, phoneNumber, dob);
         this.isLoggedIn = false;

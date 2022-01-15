@@ -1,6 +1,6 @@
-package com.revature.shopping.cart;
+package com.revature.users.cart;
 
-import com.revature.shopping.cart.food.Food;
+import com.revature.users.cart.food.Food;
 
 import java.util.ArrayList;
 import java.util.Objects;

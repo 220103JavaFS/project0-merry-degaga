@@ -1,6 +1,6 @@
 package com.revature.users;
 
-import com.revature.shopping.cart.Cart;
+import com.revature.users.cart.Cart;
 
 import java.util.Objects;
 
@@ -8,6 +8,8 @@ public class Customer extends User{
 
     private Cart cart;
     private int rewards;
+
+    public Customer(){}
 
     public Customer(String name, String email, String phoneNumber, String dob){
         super(name, email, phoneNumber,dob);

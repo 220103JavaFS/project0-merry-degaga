@@ -13,9 +13,7 @@ public class AccessManagerConfigure implements AccessManager {
     @Override
     public void manage(@NotNull Handler handler, @NotNull Context ctx, @NotNull Set<RouteRole> routeRoles) throws Exception {
 
-        if(routeRoles.size()==0) { //javalin documentation states if no routeRoles provided in addpath for a verb,
-            // then no routeRoles would be required - the path would not go through AccessManager. Documenation must be
-            // out of date because this did not work as stated so had to put this condition in.
+        if(routeRoles.size()==0) {
             handler.handle(ctx);
             return;
         }

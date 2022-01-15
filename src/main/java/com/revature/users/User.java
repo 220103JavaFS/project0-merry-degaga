@@ -11,7 +11,9 @@ public abstract class User {
     private String phoneNumber;
     private String dob;
 
-    protected User(String name, String email, String phoneNumber, String dob){
+    public User(){}
+
+    public User(String name, String email, String phoneNumber, String dob){
         super();
         //validate input with utility class
         try {
