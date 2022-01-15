@@ -10,26 +10,45 @@ public class MenuController extends Controller {
     public MenuController(){}
 
     private Handler getMenu = (ctx) -> {
-        service.getMenu();
-        ctx.status(200);
+        if(ctx.req.getSession(false)!=null){
+            service.getMenu();
+            ctx.status(200);
+        }
+        else {
+            ctx.status(401);
+        }
     };
 
     private Handler addMenuItem = (ctx) -> {
-        Food food = ctx.bodyAsClass(Food.class);
-        service.addMenuItem(food);
-        ctx.status(200);
-
+        if(ctx.req.getSession(false)!=null){
+            Food food = ctx.bodyAsClass(Food.class);
+            service.addMenuItem(food);
+            ctx.status(200);
+        }
+        else {
+            ctx.status(401);
+        }
     };
     private Handler removeMenuItem = (ctx) -> {
-        String name = ctx.queryParam("name");
-        service.removeMenuItem(name);
-        ctx.status(200);
+        if(ctx.req.getSession(false)!=null){
+            String name = ctx.queryParam("name");
+            service.removeMenuItem(name);
+            ctx.status(200);
+        }
+        else {
+            ctx.status(401);
+        }
     };
 
     private Handler editMenuItem = (ctx) -> {
-        String name = ctx.queryParam("name");
-        service.editMenuItem(name);
-        ctx.status(200);
+        if(ctx.req.getSession(false)!=null){
+            String name = ctx.queryParam("name");
+            service.editMenuItem(name);
+            ctx.status(200);
+        }
+        else {
+            ctx.status(401);
+        }
     };
 
 
