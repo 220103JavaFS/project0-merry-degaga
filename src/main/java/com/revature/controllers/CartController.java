@@ -10,19 +10,44 @@ public class CartController extends Controller {
     public CartController(){}
 
     private Handler addItemToCart = (ctx) -> {
-        Food food = ctx.bodyAsClass(Food.class);
-        service.addItemToCart(food);
+        if(ctx.req.getSession(false)!=null){
+            String name = ctx.queryParam("name");
+            Food food = ctx.bodyAsClass(Food.class);
+            service.addItemToCart(food);
+            ctx.status(200);
+        }
+        else {
+            ctx.status(401);
+        }
     };
     private Handler removeItemFromCart = (ctx) -> {
-        String name = ctx.queryParam("name");
-        service.removeItemFromCart(name);
+        if(ctx.req.getSession(false)!=null){
+            String name = ctx.queryParam("name");
+            service.removeItemFromCart(name);
+            ctx.status(200);
+        }
+        else {
+            ctx.status(401);
+        }
     };
     private Handler getTotalOrder = (ctx) -> {
-        service.getTotalOrder();
+        if(ctx.req.getSession(false)!=null){
+            service.getTotalOrder();
+            ctx.status(200);
+        }
+        else {
+            ctx.status(401);
+        }
     };
     private Handler editItemInCart = (ctx) -> {
-        String name = ctx.queryParam("name");
-        service.editItemInCart(name);
+        if(ctx.req.getSession(false)!=null){
+            String name = ctx.queryParam("name");
+            service.editItemInCart(name);
+            ctx.status(200);
+        }
+        else {
+            ctx.status(401);
+        }
     };
 
     @Override
@@ -34,3 +59,5 @@ public class CartController extends Controller {
         app.patch("/menus/edit/cart", editItemInCart, Role.CUSTOMER, Role.EMPLOYEE, Role.MANAGER);
     }
 }
+
+
