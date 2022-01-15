@@ -5,7 +5,7 @@ import com.revature.users.cart.food.Food;
 public class MenuDAOImp implements MenuDAO{
     @Override
     public void addMenuItem(Food food) {
-        
+
     }
 
     @Override

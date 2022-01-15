@@ -4,10 +4,14 @@ import com.revature.dao.OrderDAO;
 import com.revature.dao.OrderDAOImp;
 
 public class OrderService {
-    private OrderDAO service = new OrderDAOImp();
+    private OrderDAO dao = new OrderDAOImp();
     public OrderService(){}
 
-    public void getAllOrders(){}
+    public void getAllOrders(){
+        //dao.getAllOrders();
+    }
 
-    public void completeOrder(){}
+    public void completeOrder(){
+        //dao.completeOrder();
+    }
 }
