@@ -1,38 +1,34 @@
 package com.revature.service;
+import com.revature.dao.LogonDAO;
 import com.revature.dao.LogonDAOImp;
+import com.revature.exceptions.MyException;
+
 import javax.crypto.Cipher;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyPairGenerator;
-import java.security.SecureRandom;
 
 
 public class LogonService {
     private Cipher cipher;
     private String algorithm = "RSA";
-    private LogonDAOImp service =  new LogonDAOImp();
+    private LogonDAO dao =  new LogonDAOImp();
     public LogonService(){}
 
-    public boolean login(String username, String password, boolean isLoggedIn){
-        try {
-            if (!isLoggedIn) {
+    public boolean login(String username, String password){
+        if(username!=null && password != null) {
+            try {
                 createCipher();
                 byte[] ciphertext = cipher.doFinal(password.getBytes(StandardCharsets.US_ASCII));
-                //new String(ciphertext)
-                return true;
+                return checkDB(username, new String(ciphertext));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
-        } catch (Exception e) {
-            System.out.println("top");
-            System.out.println(e.getMessage());
+        } else {
+            throw new MyException("Empty values entered in username or password");
         }
-        return false; //user is already logged in
+        return true;
     }
 
-    public boolean logout(boolean isLoggedIn){
-        if(isLoggedIn) {
-            return(service.logout());
-        }
-        return false;
-    }
 
     private Cipher createCipher() {
         try {
@@ -45,6 +41,16 @@ public class LogonService {
              System.out.println(e.getMessage());
          }
         return null;
+    }
+
+    private boolean checkDB(String username, String ciphertext){
+        //dao.logon(username, ciphertext);
+
+        return true;
+    }
+
+    public String getUserRole(String username){
+        return dao.getUserRole(username);
     }
 
 }

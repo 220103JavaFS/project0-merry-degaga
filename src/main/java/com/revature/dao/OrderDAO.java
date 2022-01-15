@@ -1,4 +1,4 @@
 package com.revature.dao;
 
-interface OrderDAO {
+public interface OrderDAO {
 }

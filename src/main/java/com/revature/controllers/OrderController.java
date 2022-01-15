@@ -1,9 +1,12 @@
 package com.revature.controllers;
+import com.revature.service.OrderService;
 import io.javalin.Javalin;
 import io.javalin.http.Handler;
 
 
-public class OrderController extends Controller implements Roles{
+public class OrderController extends Controller {
+    private OrderService service = new OrderService();
+    public OrderController(){}
 
     private Handler getAllOrders = (ctx) -> {
 
@@ -14,8 +17,8 @@ public class OrderController extends Controller implements Roles{
 
     @Override
     public void addRoutes(Javalin app) {
-        app.get("/orders",getAllOrders, Role.EMPLOYEE);
-        app.put("/complete", completeOrder, Role.EMPLOYEE, Role.MANAGER);
+        app.get("/orders",getAllOrders, Role.MANAGER);
+        app.put("/complete", completeOrder, Role.MANAGER);
     }
 
 

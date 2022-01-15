@@ -6,7 +6,8 @@ public final class Validator {
 
     private static String pattern;
 
-    private Validator(){}
+    //make into a singleton
+    public Validator(){}
 
     //default utility methods
     static boolean isValidName(String name) {

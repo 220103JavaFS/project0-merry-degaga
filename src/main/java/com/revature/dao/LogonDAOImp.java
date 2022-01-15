@@ -1,14 +1,15 @@
 package com.revature.dao;
 
-public class LogonDAOImp extends DAO implements LogonDAO {
+public class LogonDAOImp implements LogonDAO {
 
     public boolean logon(String username, String password){
         return false;
     }
 
-    public boolean logout(){
-        //SQL command
-        return true;
+    @Override
+    public String getUserRole(String username) {
+        return "Manager";
     }
+
 
 }

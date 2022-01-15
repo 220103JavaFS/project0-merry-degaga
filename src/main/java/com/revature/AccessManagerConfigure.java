@@ -12,8 +12,15 @@ public class AccessManagerConfigure implements AccessManager {
 
     @Override
     public void manage(@NotNull Handler handler, @NotNull Context ctx, @NotNull Set<RouteRole> routeRoles) throws Exception {
-        //grab ctx ROLE header
+
+        if(routeRoles.size()==0) { //javalin documentation states if no routeRoles provided in addpath for a verb,
+            // then no routeRoles would be required - the path would not go through AccessManager. Documenation must be
+            // out of date because this did not work as stated so had to put this condition in.
+            handler.handle(ctx);
+            return;
+        }
         String role = getUserRole(ctx);
+        //can seperate out role == null for when user not logged in and so cannot access session
         if( role != null && isInRoles(role, routeRoles)) {
             handler.handle(ctx);
         } else {
@@ -29,6 +36,6 @@ public class AccessManagerConfigure implements AccessManager {
     }
 
     private String getUserRole(Context ctx) {
-        return ctx.header("Role");
+        return (String) ctx.req.getSession().getAttribute("Role");
     }
 }

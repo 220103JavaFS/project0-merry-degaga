@@ -1,36 +1,34 @@
 package com.revature.controllers;
+import com.revature.service.MenuService;
 import io.javalin.Javalin;
 import io.javalin.http.Handler;
 
 
 
-public class MenuController extends Controller implements Roles {
+public class MenuController extends Controller {
 
+    private MenuService service = new MenuService();
+    public MenuController(){}
 
-    //call declare and init a service layer object
     private Handler getMenu = (ctx) -> {
-        System.out.println("role?????");
-        ctx.html("<h1>no menu at this time</h1>");
         ctx.status(200);
     };
 
-    private Handler addItemToCart = (ctx) -> {
+    private Handler addMenuItem = (ctx) -> {
 
     };
-    private Handler removeItemFromCart = (ctx) -> {
+    private Handler removeMenuItem = (ctx) -> {
 
     };
-    private Handler getTotalOrder = (ctx) -> {
 
-    };
+
 
     @Override
     public void addRoutes(Javalin app) {
-        app.get("/menu", getMenu, Role.ALL);
-        app.get("/cart", getTotalOrder, Role.ALL);
-        app.put("/menu/add", addItemToCart, Role.ALL);
-        app.put("/menus/remove", removeItemFromCart, Role.ALL);
+        app.get("/menu", getMenu, Role.MANAGER, Role.EMPLOYEE, Role.CUSTOMER);
 
+        app.put("/menu/add", addMenuItem, Role.MANAGER);
+        app.put("/menu/remove", removeMenuItem, Role.MANAGER);
     }
 
 
