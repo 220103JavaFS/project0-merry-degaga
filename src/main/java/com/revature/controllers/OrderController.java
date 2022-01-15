@@ -8,12 +8,12 @@ public class OrderController extends Controller {
     public OrderController(){}
 
     private Handler getAllOrders = (ctx) -> {
-        //service.getAllOrders();
+        service.getAllOrders();
         ctx.status(200);
 
     };
     private Handler completeOrder = (ctx) -> {
-        //service.completeOrder(); //automatically completes first order in table.
+        service.completeOrder(); //automatically completes first order in table.
         ctx.status(200);
     };
 
