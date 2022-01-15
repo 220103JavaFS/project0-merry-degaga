@@ -17,6 +17,11 @@ public class OrderController extends Controller {
         ctx.status(200);
     };
 
+    //if there is time
+    private Handler viewProfits = (ctx) -> {
+      //service.viewProfits();
+    };
+
     @Override
     public void addRoutes(Javalin app) {
         app.get("/orders",getAllOrders, Role.MANAGER, Role.EMPLOYEE);
