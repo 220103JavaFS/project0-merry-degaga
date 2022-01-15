@@ -11,18 +11,18 @@ public class CartController extends Controller {
 
     private Handler addItemToCart = (ctx) -> {
         Food food = ctx.bodyAsClass(Food.class);
-        //service.addItemToCart(food);
+        service.addItemToCart(food);
     };
     private Handler removeItemFromCart = (ctx) -> {
         String name = ctx.queryParam("name");
-        //service.removeItemFromCart(name);
+        service.removeItemFromCart(name);
     };
     private Handler getTotalOrder = (ctx) -> {
-        //service.getTotalOrder();
+        service.getTotalOrder();
     };
     private Handler editItemInCart = (ctx) -> {
         String name = ctx.queryParam("name");
-        //service.editItemInCart(name)
+        service.editItemInCart(name);
     };
 
     @Override
