@@ -8,13 +8,23 @@ public class OrderController extends Controller {
     public OrderController(){}
 
     private Handler getAllOrders = (ctx) -> {
-        service.getAllOrders();
-        ctx.status(200);
+        if(ctx.req.getSession(false)!=null){
+            service.getAllOrders();
+            ctx.status(200);
+        }
+        else {
+            ctx.status(401);
+        }
 
     };
     private Handler completeOrder = (ctx) -> {
-        service.completeOrder(); //automatically completes first order in table.
-        ctx.status(200);
+        if(ctx.req.getSession(false)!=null){
+            service.completeOrder(); //automatically completes first order in table.
+            ctx.status(200);
+        }
+        else {
+            ctx.status(401);
+        }
     };
 
     //if there is time
