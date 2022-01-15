@@ -9,10 +9,16 @@ public class CartService {
     public CartService(){}
 
     public void addItemToCart(Food food) {
-
+        //dao.addItemToCart(food);
     }
-    public void removeItemFromCart(String name){}
+    public void removeItemFromCart(String name){
+        //dao.removeItemFromCart(name);
+    }
 
-    public void getTotalOrder(){}
-    public void editItemInCart(String name){}
+    public void getTotalOrder(){
+        //dao.getTotalOrder();
+    }
+    public void editItemInCart(String name){
+        //dao.editItemInCart(name);
+    }
 }
