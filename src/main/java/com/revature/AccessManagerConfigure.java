@@ -1,4 +1,5 @@
 package com.revature;
+import com.revature.users.User;
 import io.javalin.core.security.AccessManager;
 import io.javalin.core.security.RouteRole;
 import io.javalin.http.Context;
@@ -18,6 +19,7 @@ public class AccessManagerConfigure implements AccessManager {
             return;
         }
         String role = getUserRole(ctx);
+        //System.out.println("role is : " + role);
         //can seperate out role == null for when user not logged in and so cannot access session
         if( role != null && isInRoles(role, routeRoles)) {
             handler.handle(ctx);
@@ -34,6 +36,11 @@ public class AccessManagerConfigure implements AccessManager {
     }
 
     private String getUserRole(Context ctx) {
+        if(ctx.req.getSession(false)==null) { //need to have this when table not filled with any info - a manager /
+            // employee should be able to register themselves
+            User user = ctx.bodyAsClass(User.class);
+            return user.getRolez();
+        }
         return (String) ctx.req.getSession().getAttribute("Role");
     }
 }

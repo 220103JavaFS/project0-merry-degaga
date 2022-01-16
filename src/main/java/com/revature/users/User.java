@@ -1,5 +1,4 @@
 package com.revature.users;
-import com.revature.exceptions.MyException;
 
 import java.util.Objects;
 
@@ -15,38 +14,16 @@ public class User {
 
    public User(){}
 
-    public User(String firstname, String lastname, String email, String phoneNumber, String dob, String userId,
-                String secret, String rolez) {
-        super();
-        //validate input with utility class
-        try {
-            if (Validator.isValidName(firstname + " " + lastname)) {
-                this.firstname = firstname;
-                this.lastname = lastname;
-            }
-            if (Validator.isValidEmail(email)) {
-                this.email = email;
-            }
-            if (Validator.isValidPhoneNumber(phoneNumber)) {
-                this.phoneNumber = phoneNumber;
-            }
-            if (Validator.isValidDOB(dob)) {
-                this.dob = dob;
-            }
-            if (Validator.isValidCredentials(userId, secret)) {
-                this.userId = userId;
-                this.secret = secret;
-            }
-            if(Validator.isValidRole(rolez)) {
-                this.rolez = rolez;
-            }
-        } catch(MyException e) {
-            System.out.println(e.getMessage());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+    public User(String firstname, String lastname, String email, String phoneNumber, String dob, String userId, String secret, String rolez) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.dob = dob;
+        this.userId = userId;
+        this.secret = secret;
+        this.rolez = rolez;
     }
-
 
     public String getFirstname() {
         return firstname;
