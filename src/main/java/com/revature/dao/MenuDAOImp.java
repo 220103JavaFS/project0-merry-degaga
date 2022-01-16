@@ -8,6 +8,11 @@ import java.sql.SQLException;
 
 public class MenuDAOImp implements MenuDAO{
     @Override
+    public void getMenu() {
+
+    }
+
+    @Override
     public void addMenuItem(Food food) {
         try(Connection conn = ConnectionUtil.getConnection()){
 

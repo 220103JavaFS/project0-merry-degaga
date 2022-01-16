@@ -57,6 +57,8 @@ public class CartController extends Controller {
         app.put("/menu/add/cart", addItemToCart, Role.CUSTOMER, Role.EMPLOYEE, Role.MANAGER);
         app.delete("/menu/remove/cart", removeItemFromCart, Role.CUSTOMER, Role.EMPLOYEE, Role.MANAGER);
         app.patch("/menus/edit/cart", editItemInCart, Role.CUSTOMER, Role.EMPLOYEE, Role.MANAGER);
+
+        //create a post handler for submitted the cart to the DB since DTO will be used for manipulating the cart
     }
 }
 

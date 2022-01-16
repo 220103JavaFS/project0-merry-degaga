@@ -7,7 +7,9 @@ public class MenuService {
     private MenuDAO dao =  new MenuDAOImp();
     public MenuService(){}
 
-    public void getMenu() {}
+    public void getMenu() {
+        //dao.getMenu();
+    }
 
     public Food addMenuItem(Food food) {
         //dao.addMenuItem(food);

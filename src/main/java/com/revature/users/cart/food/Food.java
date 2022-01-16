@@ -8,7 +8,7 @@ public class Food {
     private int quantity;
 
     public Food(){}
-
+;
     public Food(String name, String cost, int quantity) {
         this.name = name;
         this.cost = cost;
