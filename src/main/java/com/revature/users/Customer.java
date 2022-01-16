@@ -9,12 +9,12 @@ public class Customer extends User{
     private Cart cart;
     private int rewards;
 
-    public Customer(){}
+    //public Customer(){}
 
-    public Customer(String name, String email, String phoneNumber, String dob){
-        super(name, email, phoneNumber,dob);
-        cart = new Cart();
-        rewards = 0;
+    public Customer(String firstname, String lastname, String email, String phoneNumber, String dob, String userId, String secret, String rolez) {
+        super(firstname, lastname, email, phoneNumber, dob, userId, secret, rolez);
+        this.cart = new Cart();
+        this.rewards = 0;
     }
 
     public Cart getCart() {
@@ -49,19 +49,9 @@ public class Customer extends User{
 
     @Override
     public String toString() {
-        return "Customer{" +
-                "cart=" + cart.toString() +
+        return "Customer{" + super.toString() +
+                "cart=" + cart +
                 ", rewards=" + rewards +
                 '}';
     }
-
-    //    @Override
-//    protected void addItem() {
-//
-//    }
-//
-//    @Override
-//    protected void removeItem() {
-//
-//    }
 }

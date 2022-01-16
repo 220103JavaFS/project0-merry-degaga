@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class LogonDAOImp implements LogonDAO {
 
-    public boolean logon(String username, String password){
+    public boolean logon(String username, String ciphertext){
         try(Connection conn = ConnectionUtil.getConnection()){
 
         }catch (SQLException e) {

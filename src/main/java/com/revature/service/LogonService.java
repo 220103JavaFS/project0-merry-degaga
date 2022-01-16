@@ -44,8 +44,7 @@ public class LogonService {
     }
 
     private boolean checkDB(String username, String ciphertext){
-        //dao.logon(username, ciphertext);
-
+        dao.logon(username, ciphertext);
         return true;
     }
 

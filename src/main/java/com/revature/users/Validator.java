@@ -73,4 +73,31 @@ public final class Validator {
         }
         return false;
     }
+
+    public static boolean isValidCredentials(String userId, String secret) {
+        if(userId == null || secret == null || userId.trim() == "" || secret.trim() == "") {
+            throw new MyException("No userId or password provided");
+        }
+        return true;
+    }
+
+    public static boolean isValidUserId(String userId) {
+        if(userId == null || userId.trim() == "") {
+            throw new MyException("No userId provided");
+        }
+        return true;
+    }
+    public static boolean isValidSecret(String secret) {
+        if(secret == null || secret.trim() == "") {
+            throw new MyException("No password provided");
+        }
+        return true;
+    }
+
+    public static boolean isValidRole(String rolez) {
+        if(rolez == null){
+            throw new MyException("No role provided");
+        }
+        return true;
+    }
 }

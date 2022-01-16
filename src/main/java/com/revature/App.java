@@ -12,7 +12,7 @@ public class App {
             c.accessManager(new AccessManagerConfigure());
         }).start();
 
-        configure(new LogonController(), new MenuController(), new OrderController(), new CartController());
+        configure(new LogonController(), new MenuController(), new OrderController(), new CartController(), new RegisterController());
     }
 
     public static void configure(Controller... controllers) {
