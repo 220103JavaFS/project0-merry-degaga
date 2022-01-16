@@ -7,25 +7,17 @@ import java.sql.SQLException;
 
 public class LogonDAOImp implements LogonDAO {
 
-    public boolean logon(String username, String ciphertext){
+    public String logon(String username){ //make this return the whole row when userID matches
         try(Connection conn = ConnectionUtil.getConnection()){
 
         }catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return false;
+        return null;
     }
 
-    @Override
-    public String getUserRole(String username) {
-        try(Connection conn = ConnectionUtil.getConnection()){
 
-        }catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return "Manager";
-    }
 
 
 }

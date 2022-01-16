@@ -16,40 +16,41 @@ public class LogonService {
 
     public boolean login(String username, String password){
         if(username!=null && password != null) {
-            try {
-                createCipher();
-                byte[] ciphertext = cipher.doFinal(password.getBytes(StandardCharsets.US_ASCII));
-                return checkDB(username, new String(ciphertext));
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
+            createCipher();
+            return checkDB(username, encryptPassword(password));
         } else {
             throw new MyException("Empty values entered in username or password");
         }
-        return true;
     }
 
+    String encryptPassword(String password) {
+        try {
+            createCipher();
+            byte[] ciphertext = cipher.doFinal(password.getBytes(StandardCharsets.US_ASCII));
+            return new String(ciphertext);
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 
-    private Cipher createCipher() {
+    private void createCipher() {
         try {
             KeyPairGenerator key = KeyPairGenerator.getInstance(algorithm);
             key.initialize(571);
             cipher = Cipher.getInstance(algorithm);
             cipher.init(Cipher.ENCRYPT_MODE,key.generateKeyPair().getPrivate());
-            return cipher;
          } catch(Exception e) {
              System.out.println(e.getMessage());
          }
-        return null;
     }
 
     private boolean checkDB(String username, String ciphertext){
-        dao.logon(username, ciphertext);
+       String ciphertext_db = dao.logon(username);
+       //do pw description and check here...
         return true;
     }
 
-    public String getUserRole(String username){
-        return dao.getUserRole(username);
-    }
+
 
 }

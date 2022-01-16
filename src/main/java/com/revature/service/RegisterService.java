@@ -9,6 +9,7 @@ public class RegisterService {
     public RegisterService(){}
 
     public boolean register(User user){
+        //if role is cusotmer make customer object...
         try{
             Validator.isValidName(user.getFirstname() + " " + user.getLastname());
             Validator.isValidEmail(user.getEmail());
@@ -17,6 +18,8 @@ public class RegisterService {
             Validator.isValidUserId(user.getUserId());
             Validator.isValidSecret(user.getSecret());
             Validator.isValidRole(user.getRolez());
+            LogonService service = new LogonService();
+            user.setSecret(service.encryptPassword(user.getSecret()));
             dao.register(user);
             return true;
         }
