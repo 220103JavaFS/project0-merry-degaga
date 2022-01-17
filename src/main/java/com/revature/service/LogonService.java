@@ -2,53 +2,71 @@ package com.revature.service;
 import com.revature.dao.LogonDAO;
 import com.revature.dao.LogonDAOImp;
 import com.revature.exceptions.MyException;
+import com.revature.users.User;
 
 import javax.crypto.Cipher;
-import java.nio.charset.StandardCharsets;
-import java.security.KeyPairGenerator;
-
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+import java.util.Base64;
 
 public class LogonService {
-    private Cipher cipher;
-    private String algorithm = "RSA";
+    private static Cipher cipher;
+    private static String algorithm = "AES";
     private LogonDAO dao =  new LogonDAOImp();
     public LogonService(){}
 
-    public boolean login(String username, String password){
+//    public String login(String username, String password){
+//        if(username!=null && password != null) {
+//            return dao.logon(username, password.hashCode()+"");
+//        } else {
+//            throw new MyException("Empty values entered in username or password");
+//        }
+//    }
+    public String login(String username, String password){
         if(username!=null && password != null) {
-            createCipher();
-            return checkDB(username, encryptPassword(password));
+            User user = dao.logon(username);
+            if(decrypt(user, password)) return user.getRolez();
         } else {
             throw new MyException("Empty values entered in username or password");
         }
+         return null;
     }
 
-    String encryptPassword(String password) {
+    public String encrypt(String password) {
         try {
             createCipher();
-            byte[] ciphertext = cipher.doFinal(password.getBytes(StandardCharsets.US_ASCII));
-            return new String(ciphertext);
-        }catch (Exception e) {
+            byte[] ciphertext = cipher.doFinal(password.getBytes("UTF-8"));
+            System.out.println(ciphertext);
+            String s = Base64.getEncoder().encodeToString(ciphertext);
+            return s;
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return null;
+        return "";
     }
 
     private void createCipher() {
         try {
-            KeyPairGenerator key = KeyPairGenerator.getInstance(algorithm);
-            key.initialize(571);
+            SecretKey secretKey = new SecretKeySpec(new byte[16], "AES");
             cipher = Cipher.getInstance(algorithm);
-            cipher.init(Cipher.ENCRYPT_MODE,key.generateKeyPair().getPrivate());
-         } catch(Exception e) {
-             System.out.println(e.getMessage());
-         }
+            cipher.init(Cipher.ENCRYPT_MODE,secretKey);
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    private boolean checkDB(String username, String ciphertext){
-       String ciphertext_db = dao.logon(username);
-       //do pw description and check here...
-        return true;
+    private boolean decrypt(User user, String password) {
+        try {
+            String secrete = user.getSecret();
+            SecretKey secretKey = new SecretKeySpec(new byte[16], "AES");
+            cipher = Cipher.getInstance(algorithm);
+            cipher.init(Cipher.DECRYPT_MODE,secretKey);
+            String d = new String(cipher.doFinal(Base64.getDecoder().decode(secrete.getBytes("UTF-8"))));
+            return password.equals(d);
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
 
 

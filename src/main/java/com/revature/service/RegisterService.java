@@ -6,6 +6,7 @@ import com.revature.users.User;
 
 public class RegisterService {
     private RegisterDAO dao = new RegisterDAOImp();
+    private LogonService service = new LogonService();
     public RegisterService(){}
 
     public boolean register(User user){
@@ -19,7 +20,8 @@ public class RegisterService {
             Validator.isValidSecret(user.getSecret());
             Validator.isValidRole(user.getRolez());
             LogonService service = new LogonService();
-            user.setSecret(service.encryptPassword(user.getSecret()));
+            //user.setSecret(user.getSecret().hashCode()+"");
+            user.setSecret(service.encrypt(user.getSecret()));
             dao.register(user);
             return true;
         }

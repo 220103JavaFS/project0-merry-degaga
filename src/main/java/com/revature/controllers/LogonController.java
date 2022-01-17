@@ -12,27 +12,32 @@ public class LogonController extends Controller {
     public LogonController(){}
 
 
+//    private Handler login = (ctx) -> {
+//        UserDTO user = ctx.bodyAsClass(UserDTO.class);
+//        String role = service.login(user.username, user.password);
+//        if(role != null){
+//            ctx.req.getSession().setAttribute("Role", role);
+//            ctx.status(200);
+//        }
+//        else {
+//            ctx.req.getSession().invalidate();
+//            ctx.status(401);
+//        }
+//    };
+
     private Handler login = (ctx) -> {
         UserDTO user = ctx.bodyAsClass(UserDTO.class);
-        try {
-            if(service.login(user.username, user.password)){
-                ctx.req.getSession().setAttribute("Role", queryRole(user.username));
-                System.out.println("session: " + (String) ctx.req.getSession().getAttribute("Role"));
-                ctx.status(200);
-            }
-            else {
-                ctx.req.getSession().invalidate();
-                ctx.status(401);
-            }
-        } catch (MyException e) {
-            System.out.println(e.getMessage());
+        String role = service.login(user.username, user.password);
+        if(role != null){
+            ctx.req.getSession().setAttribute("Role", role);
+            ctx.status(200);
+        }
+        else {
+            ctx.req.getSession().invalidate();
+            ctx.status(401);
         }
     };
 
-    private String queryRole(String username) {
-        //return service.getUserRole(username);
-        return "Manager";
-    }
 
     private Handler logout = (ctx) -> {
             ctx.req.getSession().invalidate();

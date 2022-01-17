@@ -11,8 +11,11 @@ public class RegisterDAOImp implements RegisterDAO {
     @Override
     public boolean register(User user) {
         try(Connection conn = ConnectionUtil.getConnection()){
+            //String sql = "INSERT INTO users (firstname, lastname, email, phone_number, dob, user_id, secret, rolez)
+            // " +
+            //        "VALUES (?, ?, ?, ?, ?,?,crypt(?, gen_salt('bf')),?);";
             String sql = "INSERT INTO users (firstname, lastname, email, phone_number, dob, user_id, secret, rolez) " +
-                    "VALUES (?, ?, ?, ?, ?,?,?,?);";
+                    "Values (?, ?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement statement = conn.prepareStatement(sql);
             int count = 0;
             statement.setString(++count,user.getFirstname());
