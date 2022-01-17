@@ -3,8 +3,10 @@ package com.revature.service;
 
 import com.revature.controllers.Role;
 import com.revature.exceptions.MyException;
+import com.revature.users.cart.food.Ingredient;
 
-import java.util.Locale;
+import java.util.ArrayList;
+
 
 public final class Validator {
 
@@ -112,4 +114,43 @@ public final class Validator {
         if(isInRoles) return true;
         else throw new MyException("Invalid role provided");
     }
+
+    public static boolean isValidFoodName(String foodName){
+        if(foodName == null){
+            throw new MyException("No food name provided");
+        }
+        pattern = "[a-zA-Z ]*";
+        if(foodName.matches(pattern)) {
+            return true;
+        }
+        throw new MyException("Invalid food name");
+    }
+
+    public static boolean isValidFoodDescription(String description){
+        pattern = "[a-zA-Z0-9 ]*";
+        if(description.matches(pattern)) {
+            return true;
+        }
+        throw new MyException("Invalid description format");
+    }
+
+    public static boolean isValidPrice(double price){
+        pattern = "([1-9].[0-9]{2})|([1-9][0-9].[0-9]{2})";
+        if(Double.toString(price).matches(pattern)){
+            return true;
+        }
+        throw new MyException("Invalid price provided");
+    }
+
+    public static boolean isValidIngredients(ArrayList<Ingredient> ingredient) {
+        pattern = "[a-zA-Z0-9 ]*";
+        String pattern2 = "[1-9]";
+        for(Ingredient i: ingredient){
+            if(!i.getIngredientName().matches(pattern) || !(Integer.toString(i.getCallsFor()).matches(pattern2))) {
+                throw new MyException("Invalid ingredient name or calls for amount");
+            }
+        }
+        return true;
+    }
+
 }

@@ -38,8 +38,13 @@ public class AccessManagerConfigure implements AccessManager {
     private String getUserRole(Context ctx) {
         if(ctx.req.getSession(false)==null) { //need to have this when table not filled with any info - a manager /
             // employee should be able to register themselves
-            User user = ctx.bodyAsClass(User.class);
-            return user.getRolez();
+           try {
+               User user = ctx.bodyAsClass(User.class);
+               return user.getRolez();
+           } catch(Exception e) {
+               //needed when a user is trying to access other endpoints and not logged in.
+               return null;
+           }
         }
         return (String) ctx.req.getSession().getAttribute("Role");
     }

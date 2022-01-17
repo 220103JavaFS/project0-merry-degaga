@@ -4,26 +4,26 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Food {
-    private String food_name;
+    private String foodName;
     private String description;
     private double price;
     private ArrayList<Ingredient> ingredients;
 
     public Food(){}
 
-    public Food(String food_name, String description, double price, ArrayList<Ingredient> ingredients) {
-        this.food_name = food_name;
+    public Food(String foodName, String description, double price, ArrayList<Ingredient> ingredients) {
+        this.foodName = foodName;
         this.description = description;
         this.price = price;
         this.ingredients = ingredients;
     }
 
-    public String getFood_name() {
-        return food_name;
+    public String getFoodName() {
+        return foodName;
     }
 
-    public void setFood_name(String food_name) {
-        this.food_name = food_name;
+    public void setFoodName(String foodName) {
+        this.foodName = foodName;
     }
 
     public String getDescription() {
@@ -55,18 +55,18 @@ public class Food {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Food food = (Food) o;
-        return Double.compare(food.price, price) == 0 && Objects.equals(food_name, food.food_name) && Objects.equals(description, food.description) && Objects.equals(ingredients, food.ingredients);
+        return Double.compare(food.price, price) == 0 && Objects.equals(foodName, food.foodName) && Objects.equals(description, food.description) && Objects.equals(ingredients, food.ingredients);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(food_name, description, price, ingredients);
+        return Objects.hash(foodName, description, price, ingredients);
     }
 
     @Override
     public String toString() {
         return "Food{" +
-                "food_name='" + food_name + '\'' +
+                "food_name='" + foodName + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", ingredients=" + ingredients +

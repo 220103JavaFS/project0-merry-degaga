@@ -3,31 +3,31 @@ package com.revature.users.cart.food;
 import java.util.Objects;
 
 public class Ingredient {
-    private String ingredient_name;
-    private int calls_for;
+    private String ingredientName;
+    private int callsFor;
 
     public Ingredient() {
     }
 
-    public Ingredient(String ingredient_name, int calls_for) {
-        this.ingredient_name = ingredient_name;
-        this.calls_for = calls_for;
+    public Ingredient(String ingredientName, int callsFor) {
+        this.ingredientName = ingredientName;
+        this.callsFor = callsFor;
     }
 
-    public String getIngredient_name() {
-        return ingredient_name;
+    public String getIngredientName() {
+        return ingredientName;
     }
 
-    public void setIngredient_name(String ingredient_name) {
-        this.ingredient_name = ingredient_name;
+    public void setIngredientName(String ingredientName) {
+        this.ingredientName = ingredientName;
     }
 
-    public int getCalls_for() {
-        return calls_for;
+    public int getCallsFor() {
+        return callsFor;
     }
 
-    public void setCalls_for(int calls_for) {
-        this.calls_for = calls_for;
+    public void setCallsFor(int callsFor) {
+        this.callsFor = callsFor;
     }
 
     @Override
@@ -35,19 +35,19 @@ public class Ingredient {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Ingredient that = (Ingredient) o;
-        return calls_for == that.calls_for && Objects.equals(ingredient_name, that.ingredient_name);
+        return callsFor == that.callsFor && Objects.equals(ingredientName, that.ingredientName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ingredient_name, calls_for);
+        return Objects.hash(ingredientName, callsFor);
     }
 
     @Override
     public String toString() {
         return "Ingredient{" +
-                "ingredient_name='" + ingredient_name + '\'' +
-                ", calls_for=" + calls_for +
+                "ingredientName='" + ingredientName + '\'' +
+                ", callsFor=" + callsFor +
                 '}';
     }
 }
