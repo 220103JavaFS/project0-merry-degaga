@@ -1,42 +1,53 @@
 package com.revature.users.cart.food;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Food {
-    private String name;
-    private String cost;
-    private int quantity;
+    private String food_name;
+    private String description;
+    private double price;
+    private ArrayList<Ingredient> ingredients;
 
     public Food(){}
-;
-    public Food(String name, String cost, int quantity) {
-        this.name = name;
-        this.cost = cost;
-        this.quantity = quantity;
+
+    public Food(String food_name, String description, double price, ArrayList<Ingredient> ingredients) {
+        this.food_name = food_name;
+        this.description = description;
+        this.price = price;
+        this.ingredients = ingredients;
     }
 
-    public String getName() {
-        return name;
+    public String getFood_name() {
+        return food_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFood_name(String food_name) {
+        this.food_name = food_name;
     }
 
-    public String getCost() {
-        return cost;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCost(String cost) {
-        this.cost = cost;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public double getPrice() {
+        return price;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public ArrayList<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(ArrayList<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 
     @Override
@@ -44,20 +55,21 @@ public class Food {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Food food = (Food) o;
-        return quantity == food.quantity && Objects.equals(name, food.name) && Objects.equals(cost, food.cost);
+        return Double.compare(food.price, price) == 0 && Objects.equals(food_name, food.food_name) && Objects.equals(description, food.description) && Objects.equals(ingredients, food.ingredients);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, cost, quantity);
+        return Objects.hash(food_name, description, price, ingredients);
     }
 
     @Override
     public String toString() {
         return "Food{" +
-                "name='" + name + '\'' +
-                ", cost='" + cost + '\'' +
-                ", quantity=" + quantity +
+                "food_name='" + food_name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", ingredients=" + ingredients +
                 '}';
     }
 }

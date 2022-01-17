@@ -22,6 +22,12 @@ public class LogonService {
 //            throw new MyException("Empty values entered in username or password");
 //        }
 //    }
+    /**
+    * User logs in method.
+    * @param username is the user's inputted userID
+    * @param password is the user's inputted password
+    * @return user's role else null if user not in database or incorrect credentials provided
+     * */
     public String login(String username, String password){
         if(username!=null && password != null) {
             User user = dao.logon(username);
@@ -32,6 +38,11 @@ public class LogonService {
          return null;
     }
 
+    /**
+     * Encrypts a user's password. This method is called when a user registers for the first time.
+     * @param password is the User's inputted password when registering
+     * @return is the encrypted password
+     */
     public String encrypt(String password) {
         try {
             createCipher();
@@ -45,6 +56,9 @@ public class LogonService {
         return "";
     }
 
+    /**
+     * initializes the cipher object with a key and algorithm.
+     */
     private void createCipher() {
         try {
             SecretKey secretKey = new SecretKeySpec(new byte[16], "AES");
@@ -55,6 +69,12 @@ public class LogonService {
         }
     }
 
+    /**
+     * Decrypts user's password from database. Used when a user is logging in to verify identity.
+     * @param user is the user retrieved from the database
+     * @param password is the user's inputted password
+     * @return true if the inputted password and the saved encrypted passwords match, else false
+     */
     private boolean decrypt(User user, String password) {
         try {
             String secrete = user.getSecret();

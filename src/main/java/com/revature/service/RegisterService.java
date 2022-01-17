@@ -9,8 +9,12 @@ public class RegisterService {
     private LogonService service = new LogonService();
     public RegisterService(){}
 
+    /**
+     * This runs when a user registers for the first time. Validator utility class is used to ensure inputs are valid
+     * @param user is the user's inputted information from the request
+     * @return true if user created successfully, else false if Validator finds an input is not valid
+     */
     public boolean register(User user){
-        //if role is cusotmer make customer object...
         try{
             Validator.isValidName(user.getFirstname() + " " + user.getLastname());
             Validator.isValidEmail(user.getEmail());
