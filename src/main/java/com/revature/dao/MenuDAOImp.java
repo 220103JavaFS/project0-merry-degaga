@@ -1,5 +1,6 @@
 package com.revature.dao;
 
+import com.revature.users.Inventory;
 import com.revature.users.cart.food.Food;
 import com.revature.users.cart.food.Ingredient;
 import com.revature.util.ConnectionUtil;
@@ -125,6 +126,8 @@ public class MenuDAOImp implements MenuDAO{
         return false;
     }
 
+
+
     @Override
     public void removeMenuItem(String name) {
         try(Connection conn = ConnectionUtil.getConnection()){
@@ -141,5 +144,36 @@ public class MenuDAOImp implements MenuDAO{
         }catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void addInventory(Inventory item) {
+        try(Connection conn = ConnectionUtil.getConnection()){
+            String sql = "SELECT * FROM inventory WHERE ingredient_name=?;";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, item.ingredientName);
+            ResultSet result = statement.getResultSet();
+            if(result.next()) {
+                //then just update the quantity
+                int total = item.quantity + Integer.parseInt(result.getString("quantity"));
+                sql = "UPDATE inventory SET quantity=CAST(? AS INTEGER) WHERE ingredient_name=?";
+                statement = conn.prepareStatement(sql);
+                statement.setString(1, Integer.toString(total));
+                statement.setString(2, item.ingredientName);
+                statement.execute();
+            }
+            else {
+                //add the inventory item ingredient name and quantity
+                sql = "INSERT INTO inventory(ingredient_name, quantity) VALUES (?,CAST(? AS INTEGER));";
+                statement = conn.prepareStatement(sql);
+                statement.setString(1, item.ingredientName);
+                statement.setString(2, Integer.toString(item.quantity));
+                statement.execute();
+            }
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 }

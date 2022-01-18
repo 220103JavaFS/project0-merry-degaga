@@ -2,6 +2,7 @@ package com.revature.service;
 import com.revature.dao.MenuDAO;
 import com.revature.dao.MenuDAOImp;
 import com.revature.exceptions.MyException;
+import com.revature.users.Inventory;
 import com.revature.users.cart.food.Food;
 
 import java.util.ArrayList;
@@ -26,6 +27,16 @@ public class MenuService {
             System.out.println(e.getMessage());
         }
         return true;
+    }
+
+    public void addInventory(Inventory item) {
+        try {
+            Validator.isValidFoodName(item.ingredientName);
+            Validator.isValidAvailable(item.quantity);
+            dao.addInventory(item);
+        }catch(MyException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void removeMenuItem(String name){

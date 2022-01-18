@@ -1,5 +1,6 @@
 package com.revature.controllers;
 import com.revature.service.MenuService;
+import com.revature.users.Inventory;
 import com.revature.users.cart.food.Food;
 import io.javalin.Javalin;
 import io.javalin.http.Handler;
@@ -11,7 +12,7 @@ public class MenuController extends Controller {
 
     private Handler getMenu = (ctx) -> {
         if(ctx.req.getSession(false)!=null){
-            service.getMenu();
+            ctx.json(service.getMenu());
             ctx.status(200);
         }
         else {
@@ -51,13 +52,26 @@ public class MenuController extends Controller {
         }
     };
 
+    private Handler addInventory = (ctx) -> {
+        if(ctx.req.getSession(false)!=null){
+            Inventory item = ctx.bodyAsClass(Inventory.class);
+            service.addInventory(item);
+            ctx.status(200);
+        }
+        else {
+            ctx.status(401);
+        }
+    };
+
+
 
 
     @Override
     public void addRoutes(Javalin app) {
         app.get("/menu", getMenu, Role.MANAGER, Role.EMPLOYEE, Role.CUSTOMER);
-
         app.post("/menu/add", addMenuItem, Role.MANAGER);
+        app.post("/inventory/add", addInventory, Role.MANAGER);
+
         app.patch("/menu/edit", editMenuItem, Role.MANAGER);
         app.delete("/menu/remove", removeMenuItem, Role.MANAGER);
 
