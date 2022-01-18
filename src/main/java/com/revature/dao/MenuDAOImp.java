@@ -9,8 +9,27 @@ import java.util.ArrayList;
 
 public class MenuDAOImp implements MenuDAO{
     @Override
-    public void getMenu() {
+    public ArrayList<Food> getMenu() {
 
+        try(Connection conn = ConnectionUtil.getConnection()){
+            String sql = "SELECT * FROM menu";
+            Statement statement = conn.prepareStatement(sql);
+            ResultSet result = statement.executeQuery(sql);
+
+            ArrayList<Food> menu = new ArrayList<>();
+
+            while(result.next()) {
+                menu.add(new Food(result.getString("food_name"), result.getString("description"),
+                        Double.parseDouble(result.getString("price")), new ArrayList<Ingredient>() ,
+                        Integer.parseInt(result.getString("available"))));
+            }
+            return menu;
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return new ArrayList<>();
     }
 
     @Override
@@ -78,14 +97,19 @@ public class MenuDAOImp implements MenuDAO{
                         statement.execute();
 
                         //then update the join table
-                        sql = "INSERT INTO menu_inv (food_name, ingredient_name) VALUES (?,?);";
+                       // sql = "INSERT INTO menu_inv (food_name, ingredient_name) VALUES (?,?);";
+                        sql = "INSERT INTO menu_inv (food_name, ingredient_name, calls_for) VALUES (?,?,CAST (? AS " +
+                                "INTEGER));";
+
                         statement = conn.prepareStatement(sql);
                         for (Ingredient i : ingredients) {
                             count = 0;
                             statement.setString(++count, food.getFoodName());
                             statement.setString(++count, i.getIngredientName());
+                            statement.setString(++count, Integer.toString(i.getCallsFor()));
                             statement.execute();
-                            sql = "INSERT INTO menu_inv (food_name, ingredient_name) VALUES (?,?);";
+                            sql = "INSERT INTO menu_inv (food_name, ingredient_name, calls_for) VALUES (?,?,CAST (? AS " +
+                                    "INTEGER));";
                         }
                     }
 

@@ -4,12 +4,14 @@ import com.revature.dao.MenuDAOImp;
 import com.revature.exceptions.MyException;
 import com.revature.users.cart.food.Food;
 
+import java.util.ArrayList;
+
 public class MenuService {
     private MenuDAO dao =  new MenuDAOImp();
     public MenuService(){}
 
-    public void getMenu() {
-        //dao.getMenu();
+    public ArrayList<Food> getMenu() {
+        return dao.getMenu();
     }
 
     public boolean addMenuItem(Food food) {
