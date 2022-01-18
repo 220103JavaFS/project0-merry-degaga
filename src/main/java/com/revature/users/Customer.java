@@ -4,7 +4,10 @@ import com.revature.users.cart.Cart;
 
 import java.util.Objects;
 import java.util.Random;
-
+//mainly used when a customer is putting is adding to their cart/editing/submitting their cart
+//orderID is generated and saved to the orders submitted table so that when a manager or employee goes to complete an
+// order they can complete the orders listed under a customer's orderID
+//rewards points can be implemented if code is refractored
 public class Customer extends User{
 
     private Cart cart;

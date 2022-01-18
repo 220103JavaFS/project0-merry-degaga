@@ -2,7 +2,7 @@ package com.revature.users.cart.food;
 
 import java.util.ArrayList;
 import java.util.Objects;
-
+//used by manager when adding food to the menu
 public class Food {
     private String foodName;
     private String description;

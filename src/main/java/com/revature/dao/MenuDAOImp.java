@@ -33,6 +33,17 @@ public class MenuDAOImp implements MenuDAO{
         return new ArrayList<>();
     }
 
+    /**
+     * a manager can add a menu item.
+     * it checks the inventory first, if nothing in inventory, this returns a false
+     * if there is something in the inventory, make sure enough ingredients in inventory to make the food
+     * if not, return false
+     * else update inventory, to remove that number of ingredients a food calls for
+     * then in the menu check to see if it exists in the menu, if it does, just update the available field else it
+     * entry
+     * @param food
+     * @return true if add to menu is a success
+     */
     @Override
     public boolean addMenuItem(Food food) {
         try(Connection conn = ConnectionUtil.getConnection()){
@@ -127,7 +138,10 @@ public class MenuDAOImp implements MenuDAO{
     }
 
 
-
+    /**
+     * a manager can remove a menu item
+     * @param name
+     */
     @Override
     public void removeMenuItem(String name) {
         try(Connection conn = ConnectionUtil.getConnection()){
@@ -139,7 +153,7 @@ public class MenuDAOImp implements MenuDAO{
             e.printStackTrace();
         }
     }
-
+    //not implemented
     @Override
     public void editMenuItem(String name) {
         try(Connection conn = ConnectionUtil.getConnection()){
@@ -149,6 +163,10 @@ public class MenuDAOImp implements MenuDAO{
         }
     }
 
+    /**
+     * a manager can add an item to an inventory
+     * @param item
+     */
     @Override
     public void addInventory(Inventory item) {
         try(Connection conn = ConnectionUtil.getConnection()){

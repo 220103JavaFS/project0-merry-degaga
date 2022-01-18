@@ -1,11 +1,13 @@
 package com.revature.users.cart;
 
 import com.revature.users.FoodDTO;
-import com.revature.users.cart.food.Food;
+
 
 import java.util.ArrayList;
 import java.util.Objects;
 
+//keeps track of food items in a customer's cart
+//hides that functionality from the customer and the service layer can manipulate the Customer's cart
 public class Cart {
 
     private double total;

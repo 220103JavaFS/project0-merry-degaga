@@ -2,6 +2,7 @@ package com.revature.users;
 
 import java.util.Objects;
 
+//no specific methods or fields but application can be refractored to have these special methods/ fields
 public class Manager extends Employee{
 
     //public Manager() {}

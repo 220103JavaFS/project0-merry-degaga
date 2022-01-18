@@ -9,6 +9,10 @@ import java.util.ArrayList;
 
 public class OrderDAOImp implements OrderDAO{
 
+    /**
+     *
+     * @return All the submitted orders that a manager or employee needs to completes
+     */
     @Override
     public ArrayList<OrderDTO> getAllOrders() {
         try(Connection conn = ConnectionUtil.getConnection()){
@@ -31,6 +35,12 @@ public class OrderDAOImp implements OrderDAO{
         return new ArrayList<OrderDTO>();
     }
 
+    /**
+     *
+     * @param orderID is the order(s) to complete, will remove this from the orders_submitted table. can be
+     *                refractored to have a trigger so that manager or employee can keep track of what orders were
+     *                completed
+     */
     @Override
     public void completeOrder(int orderID) {
         try(Connection conn = ConnectionUtil.getConnection()){

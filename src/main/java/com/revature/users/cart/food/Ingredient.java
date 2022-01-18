@@ -1,7 +1,7 @@
 package com.revature.users.cart.food;
 
 import java.util.Objects;
-
+//simple Ingredient class used by the manager to set up how much of one kind of ingredient a food item callsFor
 public class Ingredient {
     private String ingredientName;
     private int callsFor;

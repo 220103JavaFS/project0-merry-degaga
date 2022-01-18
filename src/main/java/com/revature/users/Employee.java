@@ -1,5 +1,6 @@
 package com.revature.users;
 
+//again code can be refraactored to add Employee specific functions / fields
 public class Employee extends User{
 
     //public Employee(){}

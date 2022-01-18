@@ -10,6 +10,11 @@ import java.sql.SQLException;
 
 public class LogonDAOImp implements LogonDAO {
 
+    /**
+     * used to grab the encrypted password from the database to service layer
+     * @param username
+     * @return
+     */
     public User logon(String username){
     //public String logon(String username, String secret){ //make this return the whole row when userID matches
         try(Connection conn = ConnectionUtil.getConnection()){

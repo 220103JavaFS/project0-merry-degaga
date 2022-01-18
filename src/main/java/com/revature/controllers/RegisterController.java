@@ -5,6 +5,7 @@ import com.revature.users.User;
 import io.javalin.Javalin;
 import io.javalin.http.Handler;
 
+//handles user registration
 public class RegisterController extends Controller{
 
     private RegisterService service = new RegisterService();

@@ -8,6 +8,12 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class RegisterDAOImp implements RegisterDAO {
+    /**
+     * Registers a user, only a manager or employee may register a customer, manager and employee can register
+     * themselves
+     * @param user is the user to register
+     * @return true if successfully add user
+     */
     @Override
     public boolean register(User user) {
         try(Connection conn = ConnectionUtil.getConnection()){

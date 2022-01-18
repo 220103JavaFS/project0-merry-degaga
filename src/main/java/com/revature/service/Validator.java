@@ -7,7 +7,7 @@ import com.revature.users.cart.food.Ingredient;
 
 import java.util.ArrayList;
 
-
+//utility class mainly used by the Service layer to validate the various user inputs
 public final class Validator {
 
     private static String pattern;

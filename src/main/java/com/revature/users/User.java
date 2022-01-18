@@ -2,6 +2,7 @@ package com.revature.users;
 
 import java.util.Objects;
 
+//parent class that contains user field information
 public class User {
     private String firstname;
     private String lastname;

@@ -16,7 +16,7 @@ public class CartDAOImp implements CartDAO {
     public CartDAOImp() {
     }
 
-
+    //not implemented
     @Override
     public void editItemInCart(String name) {
         try (Connection conn = ConnectionUtil.getConnection()) {
@@ -26,6 +26,10 @@ public class CartDAOImp implements CartDAO {
         }
     }
 
+    /**
+     * allows a customer to finalize their cart by submitting it
+     * @param customer
+     */
     @Override
     public void submitOrder(Customer customer) {
         try (Connection conn = ConnectionUtil.getConnection()) {
@@ -45,6 +49,11 @@ public class CartDAOImp implements CartDAO {
         }
     }
 
+    /**
+     * used when removing a food item from cart, the available field in menu is updated to reflect that
+     * so that other customers can have access to the food, it doesn't just disappear
+     * @param food
+     */
     @Override
     public void updateAvailable(FoodDTO food) {
         try (Connection conn = ConnectionUtil.getConnection()) {
@@ -65,6 +74,12 @@ public class CartDAOImp implements CartDAO {
         }
     }
 
+    /**
+     * before adding to cart, menu is checked to make sure what the customer is requesting is possible
+     * if it is possible, the availble field in menu is decremented
+     * @param food
+     * @return the price of the menu item else null
+     */
     @Override
     public Double checkMenuItem(FoodDTO food) {
         try (Connection conn = ConnectionUtil.getConnection()) {
