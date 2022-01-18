@@ -127,7 +127,7 @@ public final class Validator {
     }
 
     public static boolean isValidFoodDescription(String description){
-        pattern = "[a-zA-Z0-9 ]*";
+        pattern = "[a-zA-Z0-9,\\-\\. ]*";
         if(description.matches(pattern)) {
             return true;
         }
@@ -151,6 +151,13 @@ public final class Validator {
             }
         }
         return true;
+    }
+
+    public static boolean isValidAvailable(int available){
+        if(available >= 0) {
+            return true;
+        }
+        throw new MyException("Invalid available food items inputted");
     }
 
 }
