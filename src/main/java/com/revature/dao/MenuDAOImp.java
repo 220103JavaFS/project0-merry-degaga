@@ -131,7 +131,10 @@ public class MenuDAOImp implements MenuDAO{
     @Override
     public void removeMenuItem(String name) {
         try(Connection conn = ConnectionUtil.getConnection()){
-
+            String sql = "DELETE FROM menu WHERE food_name = ?;";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, name);
+            statement.execute();
         }catch (SQLException e) {
             e.printStackTrace();
         }
