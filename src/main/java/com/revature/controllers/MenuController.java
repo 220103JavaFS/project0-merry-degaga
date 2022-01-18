@@ -72,7 +72,7 @@ public class MenuController extends Controller {
         app.post("/menu/add", addMenuItem, Role.MANAGER);
         app.post("/inventory/add", addInventory, Role.MANAGER);
 
-        app.patch("/menu/edit", editMenuItem, Role.MANAGER);
+       // app.patch("/menu/edit", editMenuItem, Role.MANAGER);
         app.delete("/menu/remove", removeMenuItem, Role.MANAGER);
 
     }

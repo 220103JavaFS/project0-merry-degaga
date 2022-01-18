@@ -3,19 +3,31 @@ package com.revature.users;
 import com.revature.users.cart.Cart;
 
 import java.util.Objects;
+import java.util.Random;
 
 public class Customer extends User{
 
     private Cart cart;
+    private int orderID = new Random().nextInt(10000);
     private int rewards;
 
-    //public Customer(){}
+    public Customer(){}
 
     public Customer(String firstname, String lastname, String email, String phoneNumber, String dob, String userId, String secret, String rolez) {
         super(firstname, lastname, email, phoneNumber, dob, userId, secret, rolez);
         this.cart = new Cart();
         this.rewards = 0;
     }
+
+    public boolean addToCart(FoodDTO food){
+        return cart.addToCart(food);
+    }
+
+    public int getOrderID() {
+        return orderID;
+    }
+
+
 
     public Cart getCart() {
         return cart;
@@ -39,18 +51,19 @@ public class Customer extends User{
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Customer customer = (Customer) o;
-        return rewards == customer.rewards && Objects.equals(cart, customer.cart);
+        return orderID == customer.orderID && rewards == customer.rewards && Objects.equals(cart, customer.cart);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), cart, rewards);
+        return Objects.hash(super.hashCode(), cart, orderID, rewards);
     }
 
     @Override
     public String toString() {
-        return "Customer{" + super.toString() +
+        return "Customer{" +
                 "cart=" + cart +
+                ", orderID=" + orderID +
                 ", rewards=" + rewards +
                 '}';
     }
