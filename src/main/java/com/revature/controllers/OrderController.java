@@ -1,15 +1,20 @@
 package com.revature.controllers;
 import com.revature.service.OrderService;
+import com.revature.users.OrderDTO;
 import io.javalin.Javalin;
 import io.javalin.http.Handler;
 
+import java.util.ArrayList;
+
 public class OrderController extends Controller {
     private OrderService service = new OrderService();
+    private ArrayList<OrderDTO> orders = null;
     public OrderController(){}
 
     private Handler getAllOrders = (ctx) -> {
         if(ctx.req.getSession(false)!=null){
-            service.getAllOrders();
+            orders = service.getAllOrders();
+            ctx.json(orders);
             ctx.status(200);
         }
         else {
@@ -19,7 +24,10 @@ public class OrderController extends Controller {
     };
     private Handler completeOrder = (ctx) -> {
         if(ctx.req.getSession(false)!=null){
-            service.completeOrder(); //automatically completes first order in table.
+            if(orders == null) {
+                ctx.status(400); //please view the orders first
+            }
+            service.completeOrder(orders.get(0).orderID); //automatically completes first order in table.
             ctx.status(200);
         }
         else {
