@@ -14,7 +14,7 @@ public class MenuDAOImp implements MenuDAO{
 
         try(Connection conn = ConnectionUtil.getConnection()){
             String sql = "SELECT * FROM menu";
-            Statement statement = conn.prepareStatement(sql);
+            Statement statement = conn.createStatement();
             ResultSet result = statement.executeQuery(sql);
 
             ArrayList<Food> menu = new ArrayList<>();
@@ -173,7 +173,7 @@ public class MenuDAOImp implements MenuDAO{
             String sql = "SELECT * FROM inventory WHERE ingredient_name=?;";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, item.ingredientName);
-            ResultSet result = statement.getResultSet();
+            ResultSet result = statement.executeQuery();
             if(result.next()) {
                 //then just update the quantity
                 int total = item.quantity + Integer.parseInt(result.getString("quantity"));

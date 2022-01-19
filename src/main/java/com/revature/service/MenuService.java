@@ -44,14 +44,16 @@ public class MenuService {
      * user inputs are checked by Validator
      * @param item to add to inventory
      */
-    public void addInventory(Inventory item) {
+    public boolean addInventory(Inventory item) {
         try {
             Validator.isValidFoodName(item.ingredientName);
             Validator.isValidAvailable(item.quantity);
             dao.addInventory(item);
+            return true;
         }catch(MyException e) {
             System.out.println(e.getMessage());
         }
+        return false;
     }
     //not implemented
     public void removeMenuItem(String name){

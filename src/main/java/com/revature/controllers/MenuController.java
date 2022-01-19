@@ -11,13 +11,10 @@ public class MenuController extends Controller {
     public MenuController(){}
 
     private Handler getMenu = (ctx) -> {
-        if(ctx.req.getSession(false)!=null){
+
             ctx.json(service.getMenu());
             ctx.status(200);
-        }
-        else {
-            ctx.status(401);
-        }
+
     };
 
     private Handler addMenuItem = (ctx) -> {
@@ -55,8 +52,11 @@ public class MenuController extends Controller {
     private Handler addInventory = (ctx) -> {
         if(ctx.req.getSession(false)!=null){
             Inventory item = ctx.bodyAsClass(Inventory.class);
-            service.addInventory(item);
-            ctx.status(200);
+            if(service.addInventory(item)) {
+                ctx.status(200);
+            }else {
+                ctx.status(400);
+            }
         }
         else {
             ctx.status(401);
@@ -68,12 +68,14 @@ public class MenuController extends Controller {
 
     @Override
     public void addRoutes(Javalin app) {
-        app.get("/menu", getMenu, Role.MANAGER, Role.EMPLOYEE, Role.CUSTOMER);
+        app.get("/menu", getMenu);
         app.post("/menu/add", addMenuItem, Role.MANAGER);
         app.post("/inventory/add", addInventory, Role.MANAGER);
 
-       // app.patch("/menu/edit", editMenuItem, Role.MANAGER);
-        app.delete("/menu/remove", removeMenuItem, Role.MANAGER);
+       //app.patch("/menu/edit", editMenuItem, Role.MANAGER);
+
+        //TRY
+        //app.delete("/menu/remove", removeMenuItem, Role.MANAGER);
 
     }
 

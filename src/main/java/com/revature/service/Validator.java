@@ -135,7 +135,7 @@ public final class Validator {
     }
 
     public static boolean isValidPrice(double price){
-        pattern = "([1-9].[0-9]{2})|([1-9][0-9].[0-9]{2})";
+        pattern = "([1-9].[0-9]{1,2})|([1-9][0-9].[0-9]{1,2})";
         if(Double.toString(price).matches(pattern)){
             return true;
         }
