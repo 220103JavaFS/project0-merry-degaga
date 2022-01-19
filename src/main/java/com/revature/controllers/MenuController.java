@@ -4,14 +4,17 @@ import com.revature.users.Inventory;
 import com.revature.users.cart.food.Food;
 import io.javalin.Javalin;
 import io.javalin.http.Handler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MenuController extends Controller {
+    private static Logger log = LoggerFactory.getLogger(Controller.class);
 
     private MenuService service = new MenuService();
     public MenuController(){}
 
     private Handler getMenu = (ctx) -> {
-
+            log.info("Getting the menu...");
             ctx.json(service.getMenu());
             ctx.status(200);
 
@@ -19,9 +22,15 @@ public class MenuController extends Controller {
 
     private Handler addMenuItem = (ctx) -> {
         if(ctx.req.getSession(false)!=null){
+            log.info("Customer is attempting to add food to cart...");
             Food food = ctx.bodyAsClass(Food.class);
-            service.addMenuItem(food);
-            ctx.status(200);
+            if(service.addMenuItem(food)) {
+                log.info("Added " + food.getFoodName() + " successfully");
+                ctx.status(200);
+            } else {
+                log.info("Unable to add " + food.getFoodName() + " at this time");
+                ctx.status(400);
+            }
         }
         else {
             ctx.status(401);
@@ -52,9 +61,12 @@ public class MenuController extends Controller {
     private Handler addInventory = (ctx) -> {
         if(ctx.req.getSession(false)!=null){
             Inventory item = ctx.bodyAsClass(Inventory.class);
+            log.info("Attempting to add " + item.ingredientName + " to inventory...");
             if(service.addInventory(item)) {
+                log.info("Success adding to the inventory");
                 ctx.status(200);
             }else {
+                log.info("Unable to add " + item.ingredientName + " to inventory...");
                 ctx.status(400);
             }
         }

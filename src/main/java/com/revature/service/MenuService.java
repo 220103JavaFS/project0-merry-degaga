@@ -4,10 +4,12 @@ import com.revature.dao.MenuDAOImp;
 import com.revature.exceptions.MyException;
 import com.revature.users.Inventory;
 import com.revature.users.cart.food.Food;
-
 import java.util.ArrayList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MenuService {
+    private static Logger log = LoggerFactory.getLogger(MenuService.class);
     private MenuDAO dao =  new MenuDAOImp();
     public MenuService(){}
 
@@ -26,17 +28,23 @@ public class MenuService {
      * @return true if add was successful
      */
     public boolean addMenuItem(Food food) {
+        log.info("Validating user input...");
         try{
             Validator.isValidFoodName(food.getFoodName());
             Validator.isValidFoodDescription(food.getDescription());
             Validator.isValidPrice(food.getPrice());
             Validator.isValidIngredients(food.getIngredients());
             Validator.isValidAvailable(food.getAvailable());
-            dao.addMenuItem(food);
+            if(dao.addMenuItem(food)) {
+                return true;
+            } else {
+              return false;
+            }
         } catch(MyException e) {
-            System.out.println(e.getMessage());
+            log.info("User input is invalid ... " + e.getMessage());
+           //System.out.println(e.getMessage());
         }
-        return true;
+        return false;
     }
 
     /**
