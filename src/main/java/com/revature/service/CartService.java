@@ -52,16 +52,19 @@ public class CartService {
      * @param customer is the customer to remove cart item
      * @param food to remove and its quantity
      */
-    public void removeItemFromCart(Customer customer, FoodDTO food){
+    public boolean removeItemFromCart(Customer customer, FoodDTO food){
         try {
             Validator.isValidFoodName(food.foodName);
             Validator.isValidAvailable(food.quantity);
-            customer.getCart().removeFromCart(food);
-            //update menu to increase available items when an item was removed from customer cart
-            dao.updateAvailable(food);
+            if(customer.getCart().removeFromCart(food)) {
+                //update menu to increase available items when an item was removed from customer cart
+                dao.updateAvailable(food);
+                return true;
+            }
         }catch (MyException e) {
             System.out.println(e.getMessage());
         }
+        return false;
     }
     //not implemented
     public void editItemInCart(String name){

@@ -36,11 +36,13 @@ public class Cart {
         for(FoodDTO item: cart) {
             if(item.foodName.equalsIgnoreCase(food.foodName)) {
                 if(item.quantity < food.quantity) {
-                    return cart.remove(food);
+                    return false; //a customer cannot remove 3 food items when they only have 2 of it in their cart
                 }
-                double previous_total = item.quantity* item.price;
+                setTotal(total - (food.quantity * item.price));
                 item.quantity = item.quantity - food.quantity;
-                setTotal(previous_total - total);
+                if(item.quantity == 0) {
+                    cart.remove(food);
+                }
                 return true;
             }
         }

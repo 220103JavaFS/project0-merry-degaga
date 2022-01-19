@@ -43,6 +43,9 @@ public class CartDAOImp implements CartDAO {
                 statement.setString(++count, Double.toString(item.price));
                 statement.setString(++count, Integer.toString(customer.getOrderID()));
                 statement.execute();
+                sql = "INSERT INTO orders_submitted (food_name, quantity, charge, customer_id) VALUES (?,CAST(? " +
+                        "AS INTEGER),CAST (? AS NUMERIC),CAST(? AS INTEGER));";
+                count = 0;
             }
         }catch (SQLException e) {
             e.printStackTrace();

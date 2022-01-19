@@ -10,7 +10,7 @@ import java.util.Random;
 //rewards points can be implemented if code is refractored
 public class Customer extends User{
 
-    private Cart cart;
+    private Cart cart = new Cart();
     private int orderID = new Random().nextInt(10000);
     private int rewards;
 

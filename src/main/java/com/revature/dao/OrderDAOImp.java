@@ -25,7 +25,7 @@ public class OrderDAOImp implements OrderDAO{
                 order.foodName = result.getString("food_name");
                 order.quantity = Integer.parseInt(result.getString("quantity"));
                 order.price = Double.parseDouble(result.getString("charge"));
-                order.orderID = Integer.parseInt(result.getString("order_id"));
+                order.orderID = Integer.parseInt(result.getString("customer_id"));
                 orders.add(order);
             }
             return orders;
@@ -44,7 +44,7 @@ public class OrderDAOImp implements OrderDAO{
     @Override
     public void completeOrder(int orderID) {
         try(Connection conn = ConnectionUtil.getConnection()){
-            String sql = "DELETE FROM orders_submitted WHERE order_id = ?";
+            String sql = "DELETE FROM orders_submitted WHERE customer_id = CAST(? AS INTEGER)";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, Integer.toString(orderID));
             statement.execute();
