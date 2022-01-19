@@ -9,10 +9,15 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class LogonService {
     private static Cipher cipher;
     private static String algorithm = "AES";
     private LogonDAO dao =  new LogonDAOImp();
+    private static Logger log = LoggerFactory.getLogger(LogonService.class);
+
     public LogonService(){}
 
 //    public String login(String username, String password){
@@ -29,12 +34,20 @@ public class LogonService {
     * @return user's role else null if user not in database or incorrect credentials provided
      * */
     public String login(String username, String password){
-        if(username!=null && password != null) {
+        log.info("Validating user input...");
+        try {
+            Validator.isValidSecret(password);
+            Validator.isValidUserId(username);
+            log.info("User's input is valid...checking database");
             User user = dao.logon(username);
-            if(decrypt(user, password)) return user.getRolez();
-        } else {
-            throw new MyException("Empty values entered in username or password");
+            if(decrypt(user, password)) {
+                log.info("Inputted password matches database...");
+                return user.getRolez();
+            }
+        } catch(MyException e) {
+            log.info("Login fail due to ... " + e.getMessage());
         }
+
          return null;
     }
 
