@@ -47,9 +47,12 @@ public class LogonController extends Controller {
 
 
     private Handler logout = (ctx) -> {
+        log.info("Attempting to log out...");
         if(ctx.req.getSession(false) == null) {
+            log.info("No one is currently signed in...unable to logout");
             ctx.status(400); //cannot log out if you never logged in the first place
         } else {
+            log.info("Successfully logged out");
             ctx.req.getSession().invalidate();
             ctx.status(200);
         }
