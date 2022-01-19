@@ -5,10 +5,13 @@ import com.revature.users.Customer;
 import com.revature.users.FoodDTO;
 import io.javalin.Javalin;
 import io.javalin.http.Handler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CartController extends Controller {
     private CartService service = new CartService();
     private Customer customer = new Customer();
+    private static Logger log = LoggerFactory.getLogger(Controller.class);
     public CartController(){}
 
     private Handler addItemToCart = (ctx) -> {
@@ -18,9 +21,11 @@ public class CartController extends Controller {
             food = ctx.bodyAsClass(FoodDTO.class);
             //customer = new Customer();
             if(service.addItemToCart(customer, food)) {
+                log.info("Successfully added " + food.foodName + " to cart.");
                 ctx.status(200);
             }
             else {
+                log.info("Unable to add " + food.foodName + " to cart.");
                 ctx.status(400);
             }
         //}
@@ -37,9 +42,11 @@ public class CartController extends Controller {
             food = ctx.bodyAsClass(FoodDTO.class);
            // if(customer == null) {
             if(customer.getCart().getCart().size() == 0) {
+                log.info("Cart is empty, unable to remove from cart");
                 ctx.status(400);
             }
             if(service.removeItemFromCart(customer, food)) {
+                log.info("Successfully removed " +food.quantity+" of item " + food.foodName + " from cart");
                 ctx.status(200);
             } else {
                 ctx.status(400);
@@ -70,8 +77,10 @@ public class CartController extends Controller {
 //                ctx.status(400);
 //            }
         if(customer.getCart().getCart().size() == 0 ) {
+            log.info("Nothing in cart to submit");
             ctx.status(400);
         } else {
+            log.info("Customer "+ customer.getOrderID()+" successfully submitted order");
             service.submitOrder(customer);
             //customer = null;
             customer = new Customer();

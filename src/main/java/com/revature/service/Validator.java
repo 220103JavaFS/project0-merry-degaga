@@ -160,4 +160,11 @@ public final class Validator {
         throw new MyException("Invalid available food items inputted");
     }
 
+    public static boolean isValidQuantity(int quantity) {
+        if(quantity > 0) {
+            return true;
+        }
+        throw new MyException("Invalid quantity inputted");
+    }
+
 }

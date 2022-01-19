@@ -5,12 +5,14 @@ import com.revature.dao.CartDAOImp;
 import com.revature.exceptions.MyException;
 import com.revature.users.Customer;
 import com.revature.users.FoodDTO;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 
 public class CartService {
     private CartDAO dao = new CartDAOImp();
+    private static Logger log = LoggerFactory.getLogger(CartService.class);
     public CartService(){}
 
     /**
@@ -41,7 +43,8 @@ public class CartService {
             }
         } catch (MyException e)
         {
-            System.out.println(e.getMessage());
+            log.info("Unable to add item to cart due to ... " + e.getMessage());
+            //System.out.println(e.getMessage());
         }
         return false;
     }
@@ -55,14 +58,16 @@ public class CartService {
     public boolean removeItemFromCart(Customer customer, FoodDTO food){
         try {
             Validator.isValidFoodName(food.foodName);
-            Validator.isValidAvailable(food.quantity);
+            Validator.isValidQuantity(food.quantity);
             if(customer.getCart().removeFromCart(food)) {
+                log.info("Item successfully removed from cart, restoring amount available in menu");
                 //update menu to increase available items when an item was removed from customer cart
                 dao.updateAvailable(food);
                 return true;
             }
         }catch (MyException e) {
-            System.out.println(e.getMessage());
+            log.info("Unable to remove item from cart due to ... " + e.getMessage());
+            //System.out.println(e.getMessage());
         }
         return false;
     }
