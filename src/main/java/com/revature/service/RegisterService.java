@@ -3,8 +3,11 @@ import com.revature.dao.RegisterDAO;
 import com.revature.dao.RegisterDAOImp;
 import com.revature.exceptions.MyException;
 import com.revature.users.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RegisterService {
+    private static Logger log = LoggerFactory.getLogger(RegisterService.class);
     private RegisterDAO dao = new RegisterDAOImp();
     private LogonService service = new LogonService();
     public RegisterService(){}
@@ -16,6 +19,7 @@ public class RegisterService {
      */
     public boolean register(User user){
         try{
+            log.info("Validating user input...");
             Validator.isValidName(user.getFirstname() + " " + user.getLastname());
             Validator.isValidEmail(user.getEmail());
             Validator.isValidPhoneNumber(user.getPhoneNumber());
@@ -24,13 +28,14 @@ public class RegisterService {
             Validator.isValidSecret(user.getSecret());
             Validator.isValidRole(user.getRolez());
             LogonService service = new LogonService();
-            //user.setSecret(user.getSecret().hashCode()+"");
             user.setSecret(service.encrypt(user.getSecret()));
             dao.register(user);
             return true;
         }
         catch(MyException e){
-            System.out.println(e.getMessage());
+            log.info("Validation failed....");
+            log.info(e.getMessage());
+            //System.out.println(e.getMessage());
         }
         return false;
     }

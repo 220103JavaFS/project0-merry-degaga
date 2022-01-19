@@ -1,5 +1,4 @@
 package com.revature.dao;
-
 import com.revature.users.User;
 import com.revature.util.ConnectionUtil;
 
@@ -7,7 +6,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+
 public class RegisterDAOImp implements RegisterDAO {
+
     /**
      * Registers a user, only a manager or employee may register a customer, manager and employee can register
      * themselves
