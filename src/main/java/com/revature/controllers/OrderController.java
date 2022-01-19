@@ -27,8 +27,14 @@ public class OrderController extends Controller {
             if(orders == null) {
                 ctx.status(400); //please view the orders first
             }
-            service.completeOrder(orders.get(0).orderID); //automatically completes first order in table.
-            ctx.status(200);
+            else if(orders.size() == 0) { //nothing in orders
+                ctx.html("<p>No pending orders</p>");
+                ctx.status(200);
+            }
+            else {
+                service.completeOrder(orders.get(0).orderID); //automatically completes first order in table.
+                ctx.status(200);
+            }
         }
         else {
             ctx.status(401);
