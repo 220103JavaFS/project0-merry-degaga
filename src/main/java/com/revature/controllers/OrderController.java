@@ -43,7 +43,7 @@ public class OrderController extends Controller {
             else {
                 log.info("Attempting to complete order ... " + orders.get(0).orderID);
                 service.completeOrder(orders.get(0).orderID); //automatically completes first order in table.
-                log.info("Order id " + orders.get(0).orderID + " completed sucessfully");
+                log.info("Order id " + orders.get(0).orderID + " completed successfully");
                 ctx.status(200);
             }
         }
