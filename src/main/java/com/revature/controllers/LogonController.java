@@ -40,8 +40,12 @@ public class LogonController extends Controller {
 
 
     private Handler logout = (ctx) -> {
+        if(ctx.req.getSession(false) == null) {
+            ctx.status(400); //cannot log out if you never logged in the first place
+        } else {
             ctx.req.getSession().invalidate();
             ctx.status(200);
+        }
     };
 
     @Override
