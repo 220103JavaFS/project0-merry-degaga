@@ -62,11 +62,27 @@ public class CartController extends Controller {
 //            if(customer == null) {
 //                ctx.status(400);
 //            }
+            log.info("Getting total of cart");
             ctx.json(service.getTotalOrder(customer));
             ctx.status(200);
         //}
         //else {
           //  ctx.status(401);
+        //}
+    };
+
+    private Handler getCart = (ctx) -> {
+        // if(ctx.req.getSession(false)!=null || ctx.pathParam("Role").equalsIgnoreCase("Guest") ){
+
+//            if(customer == null) {
+//                ctx.status(400);
+//            }
+        log.info("Getting customer cart");
+        ctx.json(customer.getCart().getCart());
+        ctx.status(200);
+        //}
+        //else {
+        //  ctx.status(401);
         //}
     };
 
@@ -105,8 +121,9 @@ public class CartController extends Controller {
     @Override
     public void addRoutes(Javalin app) {
         //app.get("/cart", getTotalOrder, Role.CUSTOMER);
-        app.get("/cart", getTotalOrder);
+        app.get("/cart", getCart);
 
+        app.get("/cart/total", getTotalOrder);
         //app.post("/menu/add/cart", addItemToCart, Role.CUSTOMER);
         app.post("/cart/add", addItemToCart);
 
