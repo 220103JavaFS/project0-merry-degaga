@@ -3,6 +3,8 @@ package com.revature.users.cart;
 import com.revature.users.FoodDTO;
 
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -54,7 +56,7 @@ public class Cart {
     }
 
     public void setTotal(double total) {
-        this.total = total;
+        this.total = new BigDecimal(total).setScale(2, RoundingMode.CEILING).doubleValue();
     }
 
     public ArrayList<FoodDTO> getCart() {
