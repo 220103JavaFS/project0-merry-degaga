@@ -75,6 +75,18 @@ public class MenuController extends Controller {
         }
     };
 
+    private Handler getInventory = (ctx) -> {
+        log.info("Attempting to get inventory...");
+        if(ctx.req.getSession(false)!=null) {
+            log.info("Getting the inventory...");
+            ctx.json(service.getInventory());
+            ctx.status(200);
+        } else {
+            log.info("Not authorized to access inventory");
+            ctx.status(401);
+        }
+    };
+
 
 
 
@@ -83,6 +95,7 @@ public class MenuController extends Controller {
         app.get("/menu", getMenu);
         app.post("/menu/add", addMenuItem, Role.MANAGER);
         app.post("/inventory/add", addInventory, Role.MANAGER);
+        app.get("/inventory", getInventory, Role.MANAGER);
 
        //app.patch("/menu/edit", editMenuItem, Role.MANAGER);
 

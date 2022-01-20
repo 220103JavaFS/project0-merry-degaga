@@ -22,6 +22,14 @@ public class MenuService {
     }
 
     /**
+     *
+     * @return the inventory to a manager
+     */
+    public ArrayList<Inventory> getInventory() {
+        return dao.getInventory();
+    }
+
+    /**
      * used when a manager adds a menu item
      * user input is validated using Validator util class
      * @param food is the food item to add to the menu

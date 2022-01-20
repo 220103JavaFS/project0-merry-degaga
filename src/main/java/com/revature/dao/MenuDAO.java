@@ -11,4 +11,5 @@ public interface MenuDAO {
     void removeMenuItem(String name);
     void editMenuItem(String name);
     void addInventory(Inventory item);
+    public ArrayList<Inventory> getInventory();
 }

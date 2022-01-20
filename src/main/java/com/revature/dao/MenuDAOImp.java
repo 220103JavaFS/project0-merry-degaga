@@ -197,4 +197,27 @@ public class MenuDAOImp implements MenuDAO{
         }
 
     }
+
+    @Override
+    public ArrayList<Inventory> getInventory() {
+
+        try(Connection conn = ConnectionUtil.getConnection()){
+            String sql = "SELECT * FROM inventory";
+            Statement statement = conn.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+
+            ArrayList<Inventory> inventory = new ArrayList<>();
+
+            while(result.next()) {
+                inventory.add(new Inventory(result.getString("ingredient_name"),
+                        Integer.parseInt(result.getString("quantity"))));
+            }
+            return inventory;
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return new ArrayList<>();
+    }
 }

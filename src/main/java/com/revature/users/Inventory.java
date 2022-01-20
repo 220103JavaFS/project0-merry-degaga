@@ -4,4 +4,12 @@ package com.revature.users;
 public class Inventory {
     public String ingredientName;
     public int quantity;
+
+    public Inventory() {
+    }
+
+    public Inventory(String ingredientName, int quantity) {
+        this.ingredientName = ingredientName;
+        this.quantity = quantity;
+    }
 }
